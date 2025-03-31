@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travelopedia Payment Simulation</title>
 </head>
+
 <body>
 
     <h2>Travelopedia Dummy Payment Page</h2>
@@ -49,8 +51,8 @@
 
         function sendResponse(status) {
             const responseUrl = status === "success" ? paymentData.SuccessURL :
-                                status === "failed" ? paymentData.FailedURL :
-                                paymentData.CancelURL;
+                status === "failed" ? paymentData.FailedURL :
+                    paymentData.CancelURL;
 
             const responseData = {
                 TransactionId: paymentData.TransactionId,
@@ -67,14 +69,19 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then(result => console.log("Response sent successfully:", result))
-            .catch(error => console.error("Error sending response:", error));
+                .then(response => {
+                    console.log("Response sent successfully");
+                    // Redirect to the given URL after sending the response
+                    window.location.href = url;
+                })
+                .catch(error => {
+                    console.error("Error sending response:", error);
+                });
         }
-
         // We will handle the initial data population on the server-side now
         // receiveJsonData();
     </script>
 
 </body>
+
 </html>
