@@ -50,13 +50,13 @@
         }
 
         function sendResponse(status) {
-            const responseUrl = status === "success" ? paymentData.SuccessURL :
-                status === "failed" ? paymentData.FailedURL :
-                    paymentData.CancelURL;
+            const responseUrl = status === "success" ? document.getElementById("successUrl").innerText :
+                status === "failed" ? document.getElementById("failedUrl").innerText :
+                    document.getElementById("cancelUrl").innerText;
 
             const responseData = {
-                TransactionId: paymentData.TransactionId,
-                OrderId: paymentData.OrderId,
+                TransactionId: document.getElementById("transactionId").innerText,
+                OrderId: document.getElementById("orderId").innerText,
                 Status: status
             };
 
