@@ -54,32 +54,10 @@
                 status === "failed" ? document.getElementById("failedUrl").innerText :
                     document.getElementById("cancelUrl").innerText;
 
-            const responseData = {
-                TransactionId: document.getElementById("transactionId").innerText,
-                OrderId: document.getElementById("orderId").innerText,
-                Status: status
-            };
-
-            postJson(responseUrl, responseData);
+            window.location.href = responseUrl;
         }
 
-        function postJson(url, data) {
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    console.log("Response sent successfully");
-                    // Redirect to the given URL after sending the response
-                    window.location.href = url;
-                })
-                .catch(error => {
-                    console.error("Error sending response:", error);
-                });
-        }
-        // We will handle the initial data population on the server-side now
-        // receiveJsonData();
+
     </script>
 
 </body>
