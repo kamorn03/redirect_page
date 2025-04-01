@@ -24,6 +24,11 @@
     <button onclick="sendResponse('failed')">Failed</button>
     <button onclick="sendResponse('cancelled')">Cancelled</button>
 
+    <div>
+        <button id="successButton">Confirm Payment</button>
+        <button id="closeButton">Close</button>
+    </div>
+
     <script>
         let paymentData = {};
 
@@ -56,6 +61,26 @@
 
             window.location.href = responseUrl;
         }
+
+        window.onload = function () {
+            const origin = new URLSearchParams(window.location.search).get('origin'); // Get origin from query
+
+            document.getElementById('successButton').addEventListener('click', function () {
+                if (origin) {
+                    window.opener?.postMessage({ status: 'success', transactionId: '12345' }, origin);
+                }
+                console.log("sucess click!");
+                window.close(); // Close the tab after sending message
+            });
+
+            document.getElementById('closeButton').addEventListener('click', function () {
+                if (origin) {
+                    window.opener?.postMessage({ status: 'closed' }, origin);
+                }
+                console.log("close click!");
+                window.close();
+            });
+        };
 
 
     </script>
