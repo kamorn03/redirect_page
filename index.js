@@ -2,16 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs').promises;
+const cors = require('cors'); // Import CORS package
 
 const app = express();
-const port = process.env.PORT || 3000; // Use Heroku's assigned port
+const port = process.env.PORT || 3000;
 
-const htmlFilePath = path.join(__dirname, 'paymentSimulate.html');
+// Enable CORS for all requests
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Handle payment simulation request
+const htmlFilePath = path.join(__dirname, 'paymentSimulate.html');
+
 app.post('/', async (req, res) => {
     console.log('Received POST data:', req.body);
 
@@ -38,7 +41,6 @@ app.post('/', async (req, res) => {
     }
 });
 
-// Handle payment response
 app.post('/payment-response', (req, res) => {
     try {
         console.log('Received payment response:', req.body);
@@ -49,10 +51,8 @@ app.post('/payment-response', (req, res) => {
     }
 });
 
-// Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Global error handling
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
 });
@@ -61,7 +61,6 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
-// Start server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
