@@ -24,6 +24,11 @@
     <button onclick="sendResponse('failed')">Failed</button>
     <button onclick="sendResponse('cancelled')">Cancelled</button>
 
+    <div>
+        <button id="successButton">Confirm Payment</button>
+        <button id="closeButton">Close</button>
+    </div>
+
     <script>
         // let paymentData = {};
 
@@ -54,7 +59,7 @@
                 status === "failed" ? document.getElementById("failedUrl").innerText :
                     document.getElementById("cancelUrl").innerText;
 
-            window.location.href = responseUrl;
+            // window.location.href = responseUrl;
         }
 
         window.onload = function () {
